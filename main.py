@@ -36,17 +36,22 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        # update all objects in the group
-        for sprite in updatable:
-            sprite.update(dt)
+        updatable.update(dt)
+
+        # Checking for collisions between the player and asteroids
+        for asteroid in asteroids:
+             if player.check_collision(asteroid):
+                  print("Game Over!")
+                  return
 
         screen.fill((0,0,0))
 
-        # Draw me all the objects in the drawable group
-        for sprite in drawable:
-            sprite.draw(screen)
+        for obj in drawable:
+             obj.draw(screen)
 
+        # lets update the display
         pygame.display.flip()
+        # then lets update the clock
         dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
